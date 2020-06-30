@@ -1,0 +1,38 @@
+---
+- name: copying java
+  copy: 
+    src: /opt/jdk-8u212-linux-x64.tar.gz
+    dest: /opt
+
+- name: unzip
+  unarchive: 
+    src: /opt/jdk-8u212-linux-x64.tar.gz
+    dest: /opt
+
+- name: alternatives 1
+  command: alternatives --install /usr/bin/java java /opt/jdk1.8.0_212/bin/java 2
+
+- name: alternative 2
+  command: alternatives --install /usr/bin/java java /opt/jdk1.8.0_212/bin/java 2
+
+- name: alternative 3
+  command: alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_212/bin/javac 2
+
+- name: alternative 4
+  alternatives: 
+    name: jar
+    link: /opt/jdk1.8.0_212/bin/jar
+    path: /opt/jdk1.8.0_212/bin/jar
+
+
+- name: alternative 5
+  alternatives: 
+    name: javac
+    link: /opt/jdk1.8.0_212/bin/javac
+    path: /opt/jdk1.8.0_212/bin/javac
+
+- name: setting path
+  blockinfile: 
+    path: /etc/environment
+    block: 
+      export JAVA_HOME=/opt/jdk1.8.0_212 export JRE_HOME=/opt/jdk1.8.0_212/jre export PATH=$PATH://opt/jdk1.8.0_212/bin/:/opt/jdk1.8.0_212/jre/bin
